@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentInsetStart="0dp"
+    android:gravity="center"
+    android:background="@color/colorWhite"
+    android:layout_height="?actionBarSize">
+
+    <LinearLayout
+        android:gravity="center"
+        android:background="@drawable/radiu20"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <TextView
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/seach"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"
+            android:text="搜索"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</androidx.appcompat.widget.Toolbar>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+          <variable
+              name="activity"
+              type="com.example.baidumusic2.uis.PlayActivity" />
+
+        <variable
+            name="musicEntity"
+            type="com.example.baidumusic2.room.MusicEntity" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/RootView"
+        android:background="@mipmap/timg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/layout_title_toolbar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingBottom="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:layout_constraintBottom_toTopOf="@+id/morelayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <FrameLayout
+                android:id="@+id/albumlayout"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="65dp"
+                android:background="@mipmap/disc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <com.example.baidumusic2.views.CircleImageView
+                    android:id="@+id/iv_album"
+                    android:layout_gravity="center"
+                    android:layout_width="154dp"
+                    android:layout_height="154dp" />
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/iv_music_needle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="20dp"
+                android:src="@mipmap/needle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <!--<com.example.baidumusic.views.Lrc.impl.LrcView-->
+            <!--android:id="@+id/mLrcView"-->
+            <!--android:visibility="gone"-->
+            <!--app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/disclayout"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp" />-->
+
+            <TextView
+                android:id="@+id/tvLrcView"
+                android:text="加载中...."
+                android:gravity="center"
+                android:textColor="@color/colorBlack1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/albumlayout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <LinearLayout
+            android:id="@+id/morelayout"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toTopOf="@+id/bottomlayout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_music_collect"
+                android:onClick="@{(view)->activity.changeCollect(view,musicEntity)}"
+                android:layout_weight="1"
+                android:src="@mipmap/collect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/iv_music_down"
+                android:onClick="@{(view)->activity.onClickDownload(view,musicEntity)}"
+                android:layout_weight="1"
+                android:src="@mipmap/down"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/iv_music_more"
+                android:onClick="@{(view)->activity.onClickMore(view,musicEntity)}"
+                android:layout_weight="1"
+                android:src="@mipmap/more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/bottomlayout"
+            android:padding="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_current_time"
+                android:textColor="@color/colorBlack1"
+                android:text="00:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/tv_total_time"
+                android:layout_toRightOf="@+id/tv_current_time" />
+
+            <TextView
+                android:id="@+id/tv_total_time"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/colorBlack1"
+                android:text="00:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:layout_below="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_music_mode"
+                    android:onClick="@{(view)->activity.changleMode(view)}"
+                    android:src="@mipmap/circ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp" />
+
+                <ImageView
+                    android:id="@+id/iv_music_previous"
+                    android:onClick="@{(view)->activity.onClickPrevious(view,musicEntity)}"
+                    android:src="@mipmap/previous"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/iv_music_play"
+                    android:onClick="@{(view)->activity.onClickPause(view,musicEntity)}"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/pause"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp" />
+
+                <ImageView
+                    android:id="@+id/iv_music_next"
+                    android:onClick="@{(view)->activity.onClickNext(view,musicEntity)}"
+                    android:src="@mipmap/next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp" />
+
+                <ImageView
+                    android:id="@+id/iv_music_menu"
+                    android:src="@mipmap/menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

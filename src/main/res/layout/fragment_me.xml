@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+       <variable
+           name="fragment"
+           type="com.example.baidumusic2.fragments.MeFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        tools:context=".fragments.MeFragment">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/layout_title_toolbar"/>
+
+        <TextView
+            android:id="@+id/tv_my_downing"
+            android:onClick="@{(view)->fragment.myDownload(view)}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:paddingLeft="15dp"
+            android:background="@drawable/border_top"
+            android:drawableLeft="@mipmap/downing"
+            android:textSize="16sp"
+            android:drawablePadding="10dp"
+            android:textColor="@color/colorBlack1"
+            android:gravity="center_vertical"
+            android:text="下载音乐"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+
+        <TextView
+            android:id="@+id/tv_my_music"
+            android:onClick="@{(view)->fragment.myLocal(view)}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_my_downing"
+            android:paddingLeft="15dp"
+            android:drawableLeft="@mipmap/my_music"
+            android:background="@drawable/border_top"
+            android:textSize="16sp"
+            android:drawablePadding="10dp"
+            android:textColor="@color/colorBlack1"
+            android:gravity="center_vertical"
+            android:text="本地音乐"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

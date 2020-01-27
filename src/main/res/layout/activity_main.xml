@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        tools:context=".MainActivity">
+
+
+        <FrameLayout
+            android:id="@+id/container"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+        </FrameLayout>
+
+        <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
+        <!--android:id="@+id/navigation"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:itemIconTint="@color/bottom"-->
+        <!--app:itemTextColor="@color/bottom"-->
+        <!--app:menu="@menu/bottom"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--</com.google.android.material.bottomnavigation.BottomNavigationView>-->
+
+        <RadioGroup
+            android:id="@+id/navigation"
+            android:gravity="bottom"
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="52dp">
+
+            <RadioButton
+                android:id="@+id/rb_home"
+                android:paddingTop="5dp"
+                android:textColor="@color/bottom"
+                android:button="@null"
+                android:gravity="center"
+                android:drawableTop="@drawable/selector_home"
+                android:layout_weight="1"
+                android:text="首页"
+                android:layout_width="0dp"
+                android:layout_height="52dp" />
+
+
+            <com.example.baidumusic2.views.CircleImageView
+                android:id="@+id/civ"
+                android:src="@mipmap/ic_launcher_round"
+                android:layout_marginBottom="18dp"
+                android:layout_width="62dp"
+                android:layout_height="62dp" />
+
+
+            <RadioButton
+                android:id="@+id/rb_me"
+                android:paddingTop="5dp"
+                android:textColor="@color/bottom"
+                android:button="@null"
+                android:gravity="center"
+                android:drawableTop="@drawable/selector_my"
+                android:layout_weight="1"
+                android:text="我的"
+                android:layout_width="0dp"
+                android:layout_height="52dp" />
+
+        </RadioGroup>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

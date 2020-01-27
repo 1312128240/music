@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/mv_title"
+        android:background="@color/colorBlack1"
+        android:paddingLeft="15dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/colorWhite"
+        android:text="陈奕迅：有相信的人 就不是孤身一人"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/vv_container"
+        app:layout_constraintTop_toBottomOf="@+id/mv_title"
+        app:layout_constraintBottom_toTopOf="@+id/mv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <VideoView
+            android:id="@+id/vv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" />
+
+        <ImageView
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/iv_mv_pause"
+            android:src="@mipmap/play_music"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/iv_mv_play"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@mipmap/iv_pause_mv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/mv_hint"
+            android:textColor="@color/colorWhite"
+            android:text="播放完成"
+            android:visibility="invisible"
+            app:layout_constraintTop_toBottomOf="@id/iv_mv_pause"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ProgressBar
+            android:id="@+id/mv_pb"
+            android:indeterminateTint="#FFF"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/ll_video_control"
+            android:visibility="invisible"
+            android:gravity="center_vertical"
+            android:layout_margin="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/mv_current_time"
+                android:textColor="@color/colorWhite"
+                android:text="00:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:id="@+id/mv_seekbar"
+                android:thumb="@drawable/shape_thump"
+                android:progressTint="@color/colorBlue"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:progress="80"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/mv_total_time"
+                android:textColor="@color/colorWhite"
+                android:text="00:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/mv_fullscreen"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/full_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/mv_desc"
+        android:background="@color/colorBlack1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:ellipsize="end"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vv_container"
+        android:lines="2"
+        android:text="陈奕迅为电影《银河补习班》献唱推广曲《相信你的人》，陈奕迅×陈小霞×姚若龙的超强阵容注定这首歌的不凡。采访中，陈奕迅聊到《单车》、如何理解一首歌的意境、如何唱透一首歌。本期嘉宾——人人都爱的陈奕迅"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp" />
+
+    <LinearLayout
+        android:background="@color/colorBlack1"
+        android:gravity="end|center_vertical"
+        android:paddingEnd="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/mv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+
+        <TextView
+            android:id="@+id/iv_like"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:layout_marginEnd="25dp"
+            android:drawableLeft="@mipmap/iv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:gravity="center_vertical"
+            android:drawablePadding="5dp"
+            android:drawableLeft="@mipmap/iv_comment"
+            android:textColor="#53A4FC"
+            android:text="230"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</LinearLayout>

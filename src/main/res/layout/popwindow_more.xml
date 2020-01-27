@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_top"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingLeft="10dp">
+
+        <ImageView
+            android:id="@+id/iv_music_more"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_music_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_music_more"
+            android:layout_toRightOf="@+id/iv_music_more"
+            android:text="如果这都不算爱"
+            android:textColor="@color/colorBlack1"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_music_artr_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_music_name"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@+id/iv_music_more"
+            android:text="张学友"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#F5F5F5" />
+
+      <TextView
+          android:id="@+id/tv_music_more_singer"
+          android:textSize="16sp"
+          android:background="@drawable/border_top"
+          android:drawablePadding="10dp"
+          android:textColor="@color/colorBlack1"
+          android:paddingLeft="10dp"
+          android:gravity="center_vertical"
+          android:text="歌手"
+          android:layout_width="match_parent"
+          android:layout_height="45dp" />
+
+    <TextView
+        android:id="@+id/tv_music_more_album"
+        android:textSize="16sp"
+        android:background="@drawable/border_top"
+        android:drawablePadding="10dp"
+        android:textColor="@color/colorBlack1"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="专辑"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:id="@+id/tv_music_more_language"
+        android:textSize="16sp"
+        android:background="@drawable/border_top"
+        android:drawablePadding="10dp"
+        android:textColor="@color/colorBlack1"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="地区语言"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:id="@+id/tv_music_more_company"
+        android:textSize="16sp"
+        android:background="@drawable/border_top"
+        android:drawablePadding="10dp"
+        android:textColor="@color/colorBlack1"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="出品公司"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+
+    <TextView
+        android:id="@+id/tv_music_more_mv"
+        android:textSize="16sp"
+        android:background="@drawable/border_top"
+        android:drawablePadding="10dp"
+        android:textColor="@color/colorBlack1"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="观看MV"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+    <TextView
+        android:id="@+id/tv_more_silent"
+        android:textSize="16sp"
+        android:background="@drawable/border_top"
+        android:drawablePadding="10dp"
+        android:textColor="@color/colorBlack1"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="设置铃声或彩铃"
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+
+</LinearLayout>
