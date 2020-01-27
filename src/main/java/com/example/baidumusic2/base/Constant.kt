@@ -8,6 +8,8 @@ class Constant {
 
         val baseUrl:String="http://tingapi.ting.baidu.com/"
 
+        val videoUrl:String="http://vodkgeyttp8.vod.126.net/cloudmusic/486c/core/4a5b/51d02adc8834b84cf43c3f4e6b9899b8.mp4?wsSecret=41350a68cbca3b73f10710b333cf6fb7&wsTime=1580119101"
+
         //下载文件的目录
         val downloadMusicPath="${MyApp.getContext().getExternalFilesDir(null)}/开心音乐/下载歌曲/"
 

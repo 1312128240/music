@@ -13,6 +13,7 @@ import com.example.baidumusic2.broadcast.MainBroadcastReceiver
 import com.example.baidumusic2.fragments.MainFragment
 import com.example.baidumusic2.fragments.MeFragment
 import com.example.baidumusic2.tools.MyToast
+import com.example.baidumusic2.tools.MyWindowManager
 import com.example.baidumusic2.uis.MvActivity
 import com.example.baidumusic2.uis.PlayActivity
 

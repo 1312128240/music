@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.graphics.Color
+import android.os.Binder
 import android.os.Build
+import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
@@ -100,6 +102,41 @@ class Screen {
             }
         }
 
+
+        /**
+         * 检查悬浮权限
+         */
+        fun  checkFloatPermission(context:Context):Boolean {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT)
+                return true;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                try {
+                    var cls = Class.forName("android.content.Context");
+                    val declaredField = cls.getDeclaredField("APP_OPS_SERVICE");
+                    declaredField.setAccessible(true);
+                    var obj = declaredField.get(cls);
+                    if (!(obj is String)) {
+                        return false;
+                    }
+                    val str2 = obj as String;
+                    obj = cls.getMethod("getSystemService", String.javaClass).invoke(context, str2);
+                    cls = Class.forName("android.app.AppOpsManager");
+                    val declaredField2 = cls.getDeclaredField("MODE_ALLOWED");
+                    declaredField2.setAccessible(true);
+                    val checkOp = cls.getMethod("checkOp", Integer.TYPE, Integer.TYPE, String.javaClass);
+                    val result =  checkOp.invoke(obj, 24, Binder.getCallingUid(), context.getPackageName());
+                    return result == declaredField2.getInt(cls);
+                } catch (e:Exception) {
+                    return false;
+                }
+            } else {
+                return Settings.canDrawOverlays(context);
+            }
+        }
+
     }
+
+
+
 
 }

@@ -2,12 +2,12 @@ package com.example.baidumusic2.uis
 
 import android.app.Service
 import android.content.*
+import android.graphics.PixelFormat
+import android.media.MediaPlayer
 import android.os.IBinder
+import android.provider.Settings
 import android.text.method.ScrollingMovementMethod
-import android.view.Gravity
-import android.view.KeyEvent
-import android.view.Menu
-import android.view.View
+import android.view.*
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -34,6 +34,9 @@ import kotlinx.android.synthetic.main.activity_play.*
 import kotlinx.android.synthetic.main.layout_title_toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
+import android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION
+
+
 
 class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarChangeListener{
 
@@ -83,6 +86,8 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
         startMyService()
         registerMyReceiver()
         getMusicResources()
+
+       // playSurface()
     }
 
 
@@ -412,6 +417,11 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
             it.showAtLocation(RootView,Gravity.BOTTOM,0,0)
             it.setOnDismissListener {  Screen.setBackgroundAlpha(this,1f) }
             it.listener=object :PoPWindowMore.onClickListener{
+                override fun windowMV() {
+                   pw?.dismiss()
+                   playSurface()
+                }
+
                 override fun clickMV() {
                     pw?.dismiss()
                     pause(entity)
@@ -421,6 +431,23 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
             }
         }
     }
+
+
+
+
+    fun playSurface(){
+        if(Screen.checkFloatPermission(this)){
+            MyWindowManager().showWindow(this)
+        }else{
+            MyToast.short("请开启悬浮窗权限")
+            val intent2 = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+            startActivityForResult(intent2, 1)
+
+
+        }
+
+    }
+
 
 
     /**

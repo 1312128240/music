@@ -58,6 +58,7 @@
 
             <com.example.baidumusic2.views.CircleImageView
                 android:id="@+id/civ"
+
                 android:src="@mipmap/ic_launcher_round"
                 android:layout_marginBottom="18dp"
                 android:layout_width="62dp"

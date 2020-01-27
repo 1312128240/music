@@ -91,7 +91,7 @@
         android:textColor="@color/colorBlack1"
         android:paddingLeft="10dp"
         android:gravity="center_vertical"
-        android:text="出品公司"
+        android:text="小窗口观看MV"
         android:layout_width="match_parent"
         android:layout_height="45dp" />
 

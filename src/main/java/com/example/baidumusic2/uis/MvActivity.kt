@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.View
 import com.example.baidumusic2.R
 import com.example.baidumusic2.adapter.MvAdapter
+import com.example.baidumusic2.base.Constant
 import com.example.baidumusic2.base.MyBaseActivity
 import com.example.baidumusic2.bean.VideoBean
 import com.example.baidumusic2.databinding.ActivityMvBinding
@@ -38,14 +39,13 @@ class MvActivity :MyBaseActivity<ActivityMvBinding>(){
     }
 
     private fun initRecy(){
-        val path="http://vodkgeyttp8.vod.126.net/cloudmusic/486c/core/4a5b/51d02adc8834b84cf43c3f4e6b9899b8.mp4?wsSecret=31b9c2e04c74c54f59e1b887d7bff50b&wsTime=1579876876"
         val lists= arrayListOf<VideoBean>()
         var bean:VideoBean?=null
         for(i in 0..6){
             if(i==0){
-                bean=VideoBean(i,path,0)
+                bean=VideoBean(i,Constant.videoUrl,0)
             }else{
-                bean=VideoBean(i,path,1)
+                bean=VideoBean(i,Constant.videoUrl,1)
             }
             lists.add(bean)
         }

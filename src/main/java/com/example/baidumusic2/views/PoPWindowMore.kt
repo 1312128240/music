@@ -15,6 +15,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.bumptech.glide.Glide
 import com.example.baidumusic2.R
 import com.example.baidumusic2.room.MusicEntity
+import com.example.baidumusic2.tools.MyToast
 import com.example.baidumusic2.tools.isNotQuickClick
 import com.example.baidumusic2.uis.MvActivity
 
@@ -61,11 +62,12 @@ class PoPWindowMore constructor(var mContext:Context,var entity: MusicEntity?):P
             val tvLanguage=view.findViewById<TextView>(R.id.tv_music_more_language)
             tvLanguage.text="地区语言: 华语"
             //出品公司
-            val tvCompany=view.findViewById<TextView>(R.id.tv_music_more_company)
-            tvCompany.text="出品公司: 北京万上文化传媒有限公司"
+            val tvWindowMv=view.findViewById<TextView>(R.id.tv_music_more_company)
+          //  tvCompany.text="出品公司: 北京万上文化传媒有限公司"
             //看mv
             val tvMv=view.findViewById<TextView>(R.id.tv_music_more_mv)
             tvMv.setOnClickListener (this)
+            tvWindowMv.setOnClickListener(this)
         }
     }
 
@@ -73,11 +75,12 @@ class PoPWindowMore constructor(var mContext:Context,var entity: MusicEntity?):P
         if(isNotQuickClick()){
             when(p0?.id){
                 R.id.tv_music_more_mv->{
-                    listener?.let {
-                        it.clickMV()
-                    }
+                    listener?.clickMV()
                     //dismiss()
                     //mContext.startActivity(Intent(mContext,MvActivity::class.java))
+                }
+                R.id.tv_music_more_company->{
+                    listener?.windowMV()
                 }
             }
         }
@@ -90,6 +93,7 @@ class PoPWindowMore constructor(var mContext:Context,var entity: MusicEntity?):P
 
 
     interface onClickListener{
+        fun windowMV()
         fun clickMV()
     }
 
