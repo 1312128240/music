@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.IBinder
+import com.example.baidumusic2.IMyAidlInterface
 import com.example.baidumusic2.PlayerMediaControl.MyPlayerMedia
 
 class PlayService:Service() {
@@ -47,7 +48,9 @@ class PlayService:Service() {
         println("playService--->onDestroy")
     }
 
-
+    /**
+     * 用于本应用与本进程通信
+     */
     inner class MyBinder:Binder(){
 
         fun start(link:String){
@@ -72,4 +75,5 @@ class PlayService:Service() {
         }
 
     }
+
 }

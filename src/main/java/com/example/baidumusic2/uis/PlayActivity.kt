@@ -1,20 +1,25 @@
 package com.example.baidumusic2.uis
 
 import android.app.Service
-import android.content.*
-import android.graphics.PixelFormat
-import android.media.MediaPlayer
+import android.content.ComponentName
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.ServiceConnection
 import android.os.IBinder
 import android.provider.Settings
-import android.text.method.ScrollingMovementMethod
-import android.view.*
+import android.view.Gravity
+import android.view.KeyEvent
+import android.view.View
 import android.widget.SeekBar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.example.baidumusic2.IMyAidlInterface
 import com.example.baidumusic2.MainActivity
 import com.example.baidumusic2.MyApp
 import com.example.baidumusic2.R
+import com.example.baidumusic2.adapter.LyricAdapter
 import com.example.baidumusic2.animation.DiscTranAnimation
 import com.example.baidumusic2.animation.NeedleRotateAnimation
 import com.example.baidumusic2.animation.ViewRotateAnimation
@@ -34,8 +39,6 @@ import kotlinx.android.synthetic.main.activity_play.*
 import kotlinx.android.synthetic.main.layout_title_toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
-import android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION
-
 
 
 class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarChangeListener{
@@ -47,6 +50,8 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
     private var isPause:Boolean=false
 
     private var interval:Timer?=null
+
+    private val layoutManager by  lazy { MyLinearLayoutManager(this) }
 
     private val playVm by lazy { ViewModelProviders.of(this).get(PlayVm::class.java) }
 
@@ -68,6 +73,7 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
 
     private var pw:PoPWindowMore?=null
 
+    private  var lyricAdapter:LyricAdapter?=null
 
     override fun getLayoutId(): Int {
         Screen.setStatusBar(this,true,true,R.color.colorRed)
@@ -79,6 +85,7 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
        // val musicList=intent.getSerializableExtra("musicList") as ArrayList<Song>
         musicList=intent.getParcelableArrayListExtra<Song>("musicList")
         position=intent.getIntExtra("position",-1)
+
     }
 
     override fun business() {
@@ -86,7 +93,6 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
         startMyService()
         registerMyReceiver()
         getMusicResources()
-
        // playSurface()
     }
 
@@ -126,7 +132,6 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
     private fun initView(){
         dataBinding?.activity=this
         seekbar.setOnSeekBarChangeListener(this)
-        tvLrcView.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
 
@@ -145,6 +150,9 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
                            val p0=(currentDuration*100.0/totalduration).toInt()
                            tv_current_time.text=TimerConvert.timeParse(currentDuration)
                            seekbar.progress=p0
+
+                           //刷新歌词
+                           lyricAdapter?.notityDuration(currentDuration)
                        }
                    }
                })
@@ -225,8 +233,13 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
         Glide.with(this).load(entity.pic_big).into(iv_album)
         //Toolbar的标题
         tv_toolbar_title.text=entity.name+"  "+entity.downloadEntity?.author
-        //歌词
-        tvLrcView.text=entity.lrcContent
+        //TODO 歌词
+        val resolver = LyricResolver.resolver(entity.lrcContent)
+        lyricAdapter=LyricAdapter(this,resolver,recy_lyric)
+        recy_lyric.setHasFixedSize(true)
+       // recy_lyric.layoutManager=layoutManager
+        recy_lyric.layoutManager=LinearLayoutManager(this)
+        recy_lyric.adapter=lyricAdapter
         //收藏
         iv_music_collect.setImageResource(if (entity.isCollect) R.mipmap.collect_checked else R.mipmap.collect)
         //歌曲时间
@@ -274,7 +287,7 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
     }
 
     /**
-     * 暂停
+     * 继续播放
      */
     fun restart(entity: MusicEntity){
         isPause=false
@@ -325,7 +338,6 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
      */
     fun onClickNext(view: View,entity: MusicEntity){
         if(isNotQuickClick()){
-
             playNextAndPrevious(true)
             discTranAnimation.leftExitAnimation()
             //更新通知栏

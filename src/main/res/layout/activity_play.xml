@@ -60,25 +60,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <!--<com.example.baidumusic.views.Lrc.impl.LrcView-->
-            <!--android:id="@+id/mLrcView"-->
-            <!--android:visibility="gone"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/disclayout"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp" />-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recy_lyric"
 
-            <TextView
-                android:id="@+id/tvLrcView"
-                android:text="加载中...."
-                android:gravity="center"
-                android:textColor="@color/colorBlack1"
-                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/albumlayout"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="0dp" />
+                android:layout_height="0dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

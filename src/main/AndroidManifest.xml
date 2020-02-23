@@ -46,8 +46,15 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"/>
 
-        <!-- 服务 -->
+        <!-- 播放音乐服务 -->
         <service android:name=".service.PlayService" />
+
+        <!--aidl服务-->
+        <service android:name=".service.AidlService">
+            <intent-filter>
+                <action android:name="com.aidl.action"/>
+            </intent-filter>
+        </service>
 
     </application>
 

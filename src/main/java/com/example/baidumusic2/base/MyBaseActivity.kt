@@ -1,9 +1,8 @@
 package com.example.baidumusic2.base
 
+import android.app.Activity
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -13,11 +12,9 @@ import com.example.baidumusic2.tools.Screen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-
-import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-abstract class MyBaseActivity<T:ViewDataBinding>:AppCompatActivity(),CoroutineScope{
+abstract class MyBaseActivity<T:ViewDataBinding>: AppCompatActivity(),CoroutineScope{
 
      var job:Job= Job()
 

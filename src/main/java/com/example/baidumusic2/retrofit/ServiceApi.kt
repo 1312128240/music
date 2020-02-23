@@ -19,12 +19,8 @@ interface ServiceApi {
 
 
     @GET("v1/restserver/ting")
-    fun getPlay(@Query("songid")songid:String,
-                        @Query("method") method:String
-    ):Flowable<PlayBean>
+    fun getPlay(@Query("songid")songid:String, @Query("method") method:String):Flowable<PlayBean>
 
     @GET("v1/restserver/ting")
-   suspend fun getPlaySource(@Query("songid")songid:String,
-                @Query("method") method:String
-    ):PlayBean
+   suspend fun getPlaySource(@Query("songid")songid:String, @Query("method") method:String):PlayBean
 }

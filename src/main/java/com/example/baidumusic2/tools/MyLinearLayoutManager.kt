@@ -25,7 +25,6 @@ class MyLinearLayoutManager constructor(var mContext:Context): LinearLayoutManag
             }
         }
 
-
         linearSmoothScroller.setTargetPosition(position);
         startSmoothScroll(linearSmoothScroller);
     }
