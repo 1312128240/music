@@ -17,6 +17,7 @@ object DownloadTask:CoroutineScope{
 
     private val taskMap=HashMap<String,DownloadManage>()
 
+
     fun addTask(key:String,vaule:DownloadManage){
         taskMap.put(key,vaule)
     }

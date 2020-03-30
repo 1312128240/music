@@ -32,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp">
 
-            <FrameLayout
+
+            <com.example.baidumusic2.views.MyDiskBgView
                 android:id="@+id/albumlayout"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -45,24 +46,31 @@
                 <com.example.baidumusic2.views.CircleImageView
                     android:id="@+id/iv_album"
                     android:layout_gravity="center"
-                    android:layout_width="154dp"
-                    android:layout_height="154dp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-            </FrameLayout>
+            </com.example.baidumusic2.views.MyDiskBgView>
 
             <ImageView
                 android:id="@+id/iv_music_needle"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginLeft="45dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="20dp"
+                android:layout_marginTop="23dp"
                 android:src="@mipmap/needle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <com.example.baidumusic2.views.MyNeedleDotView
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="3dp"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_music_needle"
+                android:layout_width="39dp"
+                android:layout_height="39dp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recy_lyric"
-
                 app:layout_constraintTop_toBottomOf="@+id/albumlayout"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="match_parent"
@@ -75,35 +83,35 @@
 
         <LinearLayout
             android:id="@+id/morelayout"
-            android:gravity="center_vertical"
-            app:layout_constraintBottom_toTopOf="@+id/bottomlayout"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/bottomlayout">
 
             <ImageView
                 android:id="@+id/iv_music_collect"
-                android:onClick="@{(view)->activity.changeCollect(view,musicEntity)}"
+                android:layout_width="30dp"
+                android:layout_height="26dp"
                 android:layout_weight="1"
-                android:src="@mipmap/collect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:onClick="@{(view)->activity.changeCollect(view,musicEntity)}"
+                android:src="@mipmap/collect" />
 
             <ImageView
                 android:id="@+id/iv_music_down"
-                android:onClick="@{(view)->activity.onClickDownload(view,musicEntity)}"
+                android:layout_width="30dp"
+                android:layout_height="26dp"
                 android:layout_weight="1"
-                android:src="@mipmap/down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:onClick="@{(view)->activity.onClickDownload(view,musicEntity)}"
+                android:src="@mipmap/down" />
 
             <ImageView
                 android:id="@+id/iv_music_more"
-                android:onClick="@{(view)->activity.onClickMore(view,musicEntity)}"
+                android:layout_width="35dp"
+                android:layout_height="26dp"
                 android:layout_weight="1"
-                android:src="@mipmap/more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:onClick="@{(view)->activity.onClickMore(view,musicEntity)}"
+                android:src="@mipmap/more" />
         </LinearLayout>
 
 
@@ -149,8 +157,8 @@
                     android:id="@+id/iv_music_mode"
                     android:onClick="@{(view)->activity.changleMode(view)}"
                     android:src="@mipmap/circ"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="26dp" />
 
                 <View
                     android:layout_weight="1"
@@ -161,8 +169,8 @@
                     android:id="@+id/iv_music_previous"
                     android:onClick="@{(view)->activity.onClickPrevious(view,musicEntity)}"
                     android:src="@mipmap/previous"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="26dp" />
 
                 <ImageView
                     android:id="@+id/iv_music_play"
@@ -170,15 +178,15 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:src="@mipmap/pause"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp" />
+                    android:layout_width="45dp"
+                    android:layout_height="45dp" />
 
                 <ImageView
                     android:id="@+id/iv_music_next"
                     android:onClick="@{(view)->activity.onClickNext(view,musicEntity)}"
                     android:src="@mipmap/next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="26dp" />
 
                 <View
                     android:layout_weight="1"
@@ -188,8 +196,8 @@
                 <ImageView
                     android:id="@+id/iv_music_menu"
                     android:src="@mipmap/menu"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="30dp"
+                    android:layout_height="26dp" />
 
             </LinearLayout>
 

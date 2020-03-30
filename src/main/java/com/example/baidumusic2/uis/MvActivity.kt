@@ -5,6 +5,8 @@ import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.view.KeyEvent
 import android.view.View
+import com.example.baidumusic2.MainActivity
+import com.example.baidumusic2.MyApp
 import com.example.baidumusic2.R
 import com.example.baidumusic2.adapter.MvAdapter
 import com.example.baidumusic2.base.Constant
@@ -19,7 +21,9 @@ import kotlinx.android.synthetic.main.layout_title_toolbar.*
 class MvActivity :MyBaseActivity<ActivityMvBinding>(){
 
     private val layoutManager by  lazy { MyLinearLayoutManager(this) }
-
+    private var mvAdapter:MvAdapter?=null
+    private var holderVideo: MvAdapter.VideoViewHolder?=null
+    private var itemIsLand: Boolean=false
 
     override fun getLayoutId(): Int {
         Screen.setStatusBar(this,true,false,R.color.colorBlack1)
@@ -50,10 +54,17 @@ class MvActivity :MyBaseActivity<ActivityMvBinding>(){
             lists.add(bean)
         }
 
-        val mvAdapter=MvAdapter(this,lists,recy_mv)
+        mvAdapter=MvAdapter(this,lists,recy_mv)
         recy_mv.adapter=mvAdapter
         recy_mv.layoutManager=layoutManager
-        lifecycle.addObserver(mvAdapter)
+        lifecycle.addObserver(mvAdapter!!)
+        mvAdapter?.listener=object :MvAdapter.OnConfigChangeListener{
+            override fun onChange(isLand:Boolean,holder: MvAdapter.VideoViewHolder) {
+                    this@MvActivity.holderVideo=holder
+                    this@MvActivity.itemIsLand=isLand
+            }
+
+        }
     }
 
 
@@ -63,13 +74,19 @@ class MvActivity :MyBaseActivity<ActivityMvBinding>(){
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
-            println("横屏")
             dataBinding?.toolbar?.visibility=View.GONE
+           // layoutManager.setScrollEnabled(false)
         }else{
-            println("竖屏")
             dataBinding?.toolbar?.visibility=View.VISIBLE
+         //   layoutManager.setScrollEnabled(true)
+            if(itemIsLand){
+                println("back返回")
+                mvAdapter?.onActivityBackPress(holderVideo!!)
+            }
         }
     }
+
+
 
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

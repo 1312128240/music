@@ -29,7 +29,6 @@ class UdpService {
         try {
             mScnner.useDelimiter("\n")
             intentAddress=InetAddress.getLocalHost()
-           // println("服务端的host--${InetAddress.getLocalHost()}")
             serviceSocket= DatagramSocket(port,intentAddress)
         } catch (e: UnknownHostException) {
            println("服务端初始化异常${e}")
@@ -61,6 +60,6 @@ class UdpService {
     }
 }
 
-fun main(args: Array<String>) {
-    UdpService().start()
-}
+//fun main(args: Array<String>) {
+//    UdpService().start()
+//}

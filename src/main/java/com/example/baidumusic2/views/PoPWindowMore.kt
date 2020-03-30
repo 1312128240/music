@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -16,11 +17,11 @@ import com.bumptech.glide.Glide
 import com.example.baidumusic2.R
 import com.example.baidumusic2.room.MusicEntity
 import com.example.baidumusic2.tools.MyToast
+import com.example.baidumusic2.tools.Screen
 import com.example.baidumusic2.tools.isNotQuickClick
 import com.example.baidumusic2.uis.MvActivity
 
-class PoPWindowMore constructor(var mContext:Context,var entity: MusicEntity?):PopupWindow()
-           ,LifecycleObserver,View.OnClickListener{
+class PoPWindowMore constructor(var mContext:Context,var entity: MusicEntity?):PopupWindow(),LifecycleObserver,View.OnClickListener{
 
    var listener:onClickListener?=null
 
@@ -30,11 +31,12 @@ class PoPWindowMore constructor(var mContext:Context,var entity: MusicEntity?):P
 
     private fun initView(){
         val view=LayoutInflater.from(mContext).inflate(R.layout.popwindow_more,null)
-        height=420
+        height=Screen.dip2px(360f)
         width= ViewGroup.LayoutParams.MATCH_PARENT
         animationStyle=R.style.popwindAnimation
         isOutsideTouchable=true
         setBackgroundDrawable(ColorDrawable())
+       // setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         contentView=view
 
         setView(view)

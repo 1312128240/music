@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.baidumusic2.IMyAidlInterface
 import com.example.baidumusic2.MainActivity
 import com.example.baidumusic2.MyApp
 import com.example.baidumusic2.R
@@ -148,7 +147,7 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
                            val currentDuration=it.currentPosition
                            val totalduration=it.duration
                            val p0=(currentDuration*100.0/totalduration).toInt()
-                           tv_current_time.text=TimerConvert.timeParse(currentDuration)
+                           tv_current_time.text=ConvertTools.timeParse(currentDuration)
                            seekbar.progress=p0
 
                            //刷新歌词
@@ -244,7 +243,7 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
         iv_music_collect.setImageResource(if (entity.isCollect) R.mipmap.collect_checked else R.mipmap.collect)
         //歌曲时间
         tv_current_time.text="00:00"
-        tv_total_time.text=TimerConvert.timeParse((entity.downloadEntity?.duration!!*1000))
+        tv_total_time.text=ConvertTools.timeParse((entity.downloadEntity?.duration!!*1000))
         //更新通知栏
         playVm.updateNotification(entity,isPause)
         //进度条
@@ -437,9 +436,10 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
                 override fun clickMV() {
                     pw?.dismiss()
                     pause(entity)
-                    startActivity(Intent(this@PlayActivity,MvActivity::class.java))
+                   // startActivity(Intent(this@PlayActivity,MvActivity::class.java))
+                   // startActivity(Intent(this@PlayActivity,VideoActivity::class.java))
+                    startActivity(Intent(this@PlayActivity,NewMvActivityActivity::class.java))
                 }
-
             }
         }
     }
@@ -454,8 +454,6 @@ class PlayActivity : MyBaseActivity<ActivityPlayBinding>(), SeekBar.OnSeekBarCha
             MyToast.short("请开启悬浮窗权限")
             val intent2 = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
             startActivityForResult(intent2, 1)
-
-
         }
 
     }

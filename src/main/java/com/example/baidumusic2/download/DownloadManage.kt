@@ -1,10 +1,14 @@
 package com.example.baidumusic2.download
 
+import android.content.Intent
+import com.example.baidumusic2.MyApp
 import com.example.baidumusic2.base.Constant
 import com.example.baidumusic2.retrofit.OkhttpUtils
 import com.example.baidumusic2.room.AppDatabase
 import com.example.baidumusic2.room.DownloadEntity
 import com.example.baidumusic2.room.MusicEntity
+import com.example.baidumusic2.tools.ActivityManage
+import com.example.baidumusic2.uis.LocalMusicActivity
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Request
@@ -45,7 +49,7 @@ class DownloadManage constructor(var entity: DownloadEntity){
                     response.body()?.let {
                         val contentLength = it.contentLength()+entity.startPoistion
                         val inputStream = it.byteStream()
-                        val buffer=ByteArray(1*10)
+                        val buffer=ByteArray(1*1024)
                         var currentLength=0
                         var totalLength=entity.startPoistion
                         var progress=0;
@@ -81,7 +85,7 @@ class DownloadManage constructor(var entity: DownloadEntity){
                                     }
                                 }
                                 //inputStream.read读取buffer的（off到length）个字节数
-                                currentLength=inputStream.read(buffer,0,1*10)
+                                currentLength=inputStream.read(buffer,0,1*1024)
                                 //将字节数组buffer从off位置开始到(currentlength)结尾写入到文件中
                                 randoomFile.write(buffer,0,currentLength)
                                 totalLength+=currentLength
@@ -153,6 +157,17 @@ class DownloadManage constructor(var entity: DownloadEntity){
         musicEntity?.let {
             it.downloadEntity=entity
             AppDatabase.getAppDatabase().getMusicDao().updateAll(it)
+
+            //发送广播
+            if(entity.status==Constant.DOWNLOAD_FINISH){
+                if(ActivityManage.getCurrentActivity() is LocalMusicActivity){
+                    val intent=Intent("com.example.baidumusic2.uis.LocalMusicActivity.DownloadSucceedReceiver")
+                    intent.putExtra("bean",it)
+                    intent.action=Constant.ACTION_SUCCEED
+                    MyApp.getContext().sendBroadcast(intent)
+                }
+            }
+
         }
     }
 

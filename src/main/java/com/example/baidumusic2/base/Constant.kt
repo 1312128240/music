@@ -8,7 +8,8 @@ class Constant {
 
         val baseUrl:String="http://tingapi.ting.baidu.com/"
 
-        val videoUrl:String="http://vodkgeyttp8.vod.126.net/cloudmusic/486c/core/4a5b/51d02adc8834b84cf43c3f4e6b9899b8.mp4?wsSecret=41350a68cbca3b73f10710b333cf6fb7&wsTime=1580119101"
+        val videoUrl:String="http://vodkgeyttp8.vod.126.net/cloudmusic/486c/core/4a5b/2d7441dc8995d408579746dc939043d8.mp4" +
+                "?wsSecret=c5a3a182661c43e798c0977e32647b63&wsTime=1585124819"
 
         //下载文件的目录
         val downloadMusicPath="${MyApp.getContext().getExternalFilesDir(null)}/开心音乐/下载歌曲/"
@@ -45,5 +46,7 @@ class Constant {
         val DOWNLOAD_PAUSE=2
         val DOWNLOAD_FINISH=3
         val DOWNLOAD_ERROR=4
+
+        val ACTION_SUCCEED="com.example.baidumusic2.download.succeed"
     }
 }

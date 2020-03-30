@@ -6,14 +6,18 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
+import androidx.multidex.MultiDexApplication
 import com.example.baidumusic2.download.DownloadTask
 import com.example.baidumusic2.tools.ActivityManage
 import com.example.baidumusic2.tools.MyCrashHandler
+import com.example.baidumusic2.tools.SPTools
 import com.example.baidumusic2.uis.MvActivity
 import com.example.baidumusic2.uis.PlayActivity
 import com.example.baidumusic2.uis.SplashActivity
 
-class MyApp:Application(),Application.ActivityLifecycleCallbacks{
+class MyApp:MultiDexApplication(),Application.ActivityLifecycleCallbacks{
 
     private var activityCount:Int=0
 
@@ -39,6 +43,16 @@ class MyApp:Application(),Application.ActivityLifecycleCallbacks{
         DownloadTask.init()
         MyCrashHandler.install()
         registerActivityLifecycleCallbacks(this)
+        getAppTheme()
+    }
+
+    fun getAppTheme(){
+        val result = SPTools.getAppTheme()
+        if(result!!){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 
@@ -58,6 +72,7 @@ class MyApp:Application(),Application.ActivityLifecycleCallbacks{
 
     override fun onActivityResumed(p0: Activity) {
         println("ActivityLifecycle--->${p0}---->onResumed")
+        ActivityManage.setCurrentActivity(p0)
     }
 
     override fun onActivityPaused(p0: Activity) {

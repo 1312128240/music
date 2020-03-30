@@ -1,5 +1,7 @@
 package com.example.baidumusic2.tools
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.example.baidumusic2.MyApp
@@ -10,6 +12,8 @@ object ActivityManage{
 
 
     private var activityMap=HashMap<String,WeakReference<AppCompatActivity>>()
+
+    private var currentActivity:WeakReference<Activity>?=null
 
     fun getActivityMap():HashMap<String,WeakReference<AppCompatActivity>>{
         return activityMap
@@ -58,5 +62,14 @@ object ActivityManage{
         MyCrashHandler.unInstall()
         MyApp.getContext().stopService(Intent(MyApp.getContext(),PlayService::class.java))
         System.exit(1)
+    }
+
+
+    fun setCurrentActivity(activity:Activity){
+         currentActivity=WeakReference(activity)
+    }
+
+    fun getCurrentActivity():Activity?{
+        return currentActivity?.get()
     }
 }

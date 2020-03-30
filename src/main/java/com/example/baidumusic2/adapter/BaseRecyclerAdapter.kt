@@ -93,6 +93,16 @@ abstract class BaseRecyclerAdapter<T>(var mContext:Context,var dataLists:ArrayLi
         notifyDataSetChanged()
     }
 
+    fun add(bean:T){
+        dataLists.add(bean)
+        notifyItemInserted(dataLists.size-1)
+    }
+
+    fun remove(position: Int){
+        dataLists.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     //获取数据源
     fun getDatas():ArrayList<T>{
         return dataLists

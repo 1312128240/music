@@ -5,12 +5,13 @@
     android:orientation="vertical"
     app:contentInsetStart="0dp"
     android:layout_width="match_parent"
-    android:layout_height="58dp">
+    android:layout_height="30dp">
 
     <LinearLayout
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:gravity="center_vertical"
+        android:paddingBottom="5dp"
+        android:gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -30,15 +31,16 @@
 
         <com.example.baidumusic2.views.MyMarqueeTextView
             android:id="@+id/tv_toolbar_title"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
+            android:layout_width="84dp"
+            android:layout_height="wrap_content"
             android:ellipsize="marquee"
             android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingRight="10dp"
+            android:singleLine="true"
             android:text="标题"
-            android:layout_width="100dp"
-            android:textSize="17sp"
             android:textColor="@color/colorBlack1"
-            android:layout_height="wrap_content" />
+            android:textSize="17sp" />
 
         <View
             android:layout_weight="1"
@@ -52,7 +54,6 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
 
 
 </androidx.appcompat.widget.Toolbar>

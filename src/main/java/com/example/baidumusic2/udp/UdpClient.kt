@@ -17,11 +17,13 @@ class UdpClient {
 
 
     init {
-        intentAddress= InetAddress.getByName("192.168.117.1")
-        mStocket=DatagramSocket()
+//        intentAddress= InetAddress.getByName("192.168.117.1")
+//        mStocket=DatagramSocket()
     }
 
     fun start(){
+        intentAddress= InetAddress.getByName("192.168.117.1")
+        mStocket=DatagramSocket()
        while (true){
            try {
                //发送消息给服务端
@@ -40,14 +42,19 @@ class UdpClient {
                println("客户端接收到:${address}--->${receiverMsg}")
 
            }catch (e:Exception){
-               println("客户端异常")
+               println("客户端异常---->${e.toString()}")
            }
        }
+    }
 
-
+   fun clientSend(input:String){
+       println("客户端发送的消息---->${input}")
+       val buf=input.toByteArray()
+       sendDatagram=DatagramPacket(buf,0,buf.size,intentAddress,servicePort)
+       mStocket?.send(sendDatagram)
     }
 }
-
-fun main(args: Array<String>) {
-    var test=UdpClient().start()
-}
+//
+//fun main(args: Array<String>) {
+//    var test=UdpClient().start()
+//}

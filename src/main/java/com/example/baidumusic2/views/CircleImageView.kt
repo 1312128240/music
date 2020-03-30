@@ -14,10 +14,6 @@ class CircleImageView(context: Context, attrs: AttributeSet?) : AppCompatImageVi
     private var mPaint=Paint()
     private var mRadius:Float=40f
 
-    init {
-
-    }
-
 
     override fun onDraw(canvas: Canvas) {
         if (drawable is BitmapDrawable) {

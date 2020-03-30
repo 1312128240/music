@@ -1,8 +1,10 @@
 package com.example.baidumusic2.views
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.baidumusic2.R
 import com.example.baidumusic2.tools.Screen
+import java.lang.reflect.Type
 
 
 class FlexViewGroup(context: Context?, attrs: AttributeSet?) : ViewGroup(context, attrs) {
@@ -107,22 +110,22 @@ class FlexViewGroup(context: Context?, attrs: AttributeSet?) : ViewGroup(context
         val typeRes= mutableListOf<Int>(R.mipmap.iv_newsong,R.mipmap.iv_hotsong,R.mipmap.iv_rock,
                 R.mipmap.iv_jazz,R.mipmap.iv_fashion,R.mipmap.iv_newsong,R.mipmap.iv_hotsong,R.mipmap.iv_rock,
                 R.mipmap.iv_jazz,R.mipmap.iv_fashion)
-        typeMap.put(1,"新歌榜")
-        typeMap.put(2,"热歌榜")
-        typeMap.put(11,"摇滚榜")
+        typeMap.put(1,"新歌")
+        typeMap.put(2,"热歌")
+        typeMap.put(11,"摇滚")
         typeMap.put(12,"爵士")
         typeMap.put(16,"流行")
-        typeMap.put(21,"欧美金曲榜")
-        typeMap.put(22,"经典老歌榜")
-        typeMap.put(23,"情歌对唱榜")
-        typeMap.put(24,"影视金曲榜")
-        typeMap.put(25,"网络歌曲榜")
+        typeMap.put(21,"欧美金曲")
+        typeMap.put(22,"经典老歌")
+        typeMap.put(23,"情歌对唱")
+        typeMap.put(24,"影视金曲")
+        typeMap.put(25,"网络歌曲")
 
-        val lp=MarginLayoutParams(((Screen.getWidthPixel()-50)/5),LayoutParams.WRAP_CONTENT)
-        lp.rightMargin=5
-        lp.leftMargin=5
-        lp.topMargin=5
-        lp.bottomMargin=5
+        val lp=MarginLayoutParams(((Screen.getWidthPixel()-100)/5),LayoutParams.WRAP_CONTENT)
+        lp.rightMargin=10
+        lp.leftMargin=10
+        lp.topMargin=10
+        lp.bottomMargin=10
         var count=-1;
         for ((i1,i2) in typeMap){
             count+=1
@@ -134,6 +137,8 @@ class FlexViewGroup(context: Context?, attrs: AttributeSet?) : ViewGroup(context
             val tv= TextView(context)
             iv.setImageResource(typeRes[count])
             tv.text=i2
+            tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,13f)
+            tv.setTextColor(Color.parseColor("#000000"))
             tv.gravity=Gravity.CENTER_HORIZONTAL
             tv.setPadding(0,10,0,0)
             childLayout.addView(iv)

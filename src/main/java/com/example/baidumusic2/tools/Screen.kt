@@ -1,19 +1,29 @@
 package com.example.baidumusic2.tools
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.pm.ActivityInfo
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
 import android.os.Binder
 import android.os.Build
 import android.provider.Settings
+import android.text.Layout
+import android.text.TextPaint
 import android.util.DisplayMetrics
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import com.example.baidumusic2.MyApp
+import java.util.*
 
 
 class Screen {
@@ -33,6 +43,78 @@ class Screen {
             }
         }
 
+        var SYSTEM_UI = 0
+        @SuppressLint("NewApi")
+        fun hideSystemUI(context: Context) {
+            var uiOptions = (View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+                uiOptions = uiOptions or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            }
+
+
+            SYSTEM_UI = getWindow(context).getDecorView().getSystemUiVisibility()
+            getWindow(context).getDecorView().setSystemUiVisibility(uiOptions)
+        }
+
+        @SuppressLint("NewApi")
+        fun showSystemUI(context: Context) {
+            val uiOptions = View.SYSTEM_UI_FLAG_VISIBLE
+            getWindow(context).getDecorView().setSystemUiVisibility(SYSTEM_UI)
+        }
+
+        fun getWindow(context: Context): Window {
+            return if (getAppCompActivity(context) != null) {
+                getAppCompActivity(context)!!.getWindow()
+            } else {
+               scanForActivity(context)!!.getWindow()
+            }
+        }
+
+        fun scanForActivity(context: Context?): Activity? {
+            if (context == null) return null
+            if (context is Activity) {
+                return context
+            } else if (context is ContextWrapper) {
+                return scanForActivity(context.baseContext)
+            }
+
+            return null
+        }
+
+        fun getAppCompActivity(context: Context?): AppCompatActivity? {
+            if (context == null) return null
+            if (context is AppCompatActivity) {
+                return context
+            } else if (context is ContextThemeWrapper) {
+                return getAppCompActivity(context.baseContext)
+            }
+            return null
+        }
+
+
+        fun setRequestedOrientation(context: Context, orientation: Int) {
+
+            if (getAppCompActivity(context) != null) {
+                getAppCompActivity(context)?.setRequestedOrientation(orientation)
+            } else {
+                scanForActivity(context)?.setRequestedOrientation(orientation)
+            }
+        }
+
+
+        @SuppressLint("RestrictedApi")
+        fun showStatusBar(context: Context) {
+            getWindow(context).clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }
+
+        //如果是沉浸式的，全屏前就没有状态栏
+        @SuppressLint("RestrictedApi")
+        fun hideStatusBar(context: Context) {
+            getWindow(context).setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        }
 
         /**
          * 获取状态栏高度
@@ -73,6 +155,11 @@ class Screen {
             return (dpValue * scale + 0.5f).toInt()
         }
 
+
+        //生成指定区间随机数
+         fun randomInt(min: Int, max: Int): Int {
+            return Random().nextInt(max) % (max - min + 1) + min
+        }
 
         /**
          * 设置Activity背景颜色

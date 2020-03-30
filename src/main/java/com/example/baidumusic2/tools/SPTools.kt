@@ -21,4 +21,12 @@ object SPTools {
     fun get(key: String):String?{
        return sp?.getString(key,"1")
     }
+
+    fun setAppTheme(b:Boolean){
+        sp?.edit()?.putBoolean("isNightMode",b)?.commit()
+    }
+
+    fun getAppTheme():Boolean?{
+        return sp?.getBoolean("isNightMode",false)
+    }
 }

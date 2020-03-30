@@ -1,6 +1,11 @@
 package com.example.baidumusic2.uis
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.view.View
+import android.widget.Filter
 import android.widget.ImageView
 import android.widget.ProgressBar
 import com.example.baidumusic2.R
@@ -8,6 +13,7 @@ import com.example.baidumusic2.adapter.BaseRecyclerAdapter
 import com.example.baidumusic2.base.Constant
 import com.example.baidumusic2.base.MyBaseActivity
 import com.example.baidumusic2.databinding.ActivityDownloadBinding
+import com.example.baidumusic2.download.DownloadManage
 import com.example.baidumusic2.room.AppDatabase
 import com.example.baidumusic2.room.DownloadEntity
 import com.example.baidumusic2.room.MusicEntity
@@ -22,11 +28,11 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.*
 
-class LocalMusicActivity : MyBaseActivity<ActivityDownloadBinding>() {
+class LocalMusicActivity : MyBaseActivity<ActivityDownloadBinding>(){
 
     private var downloadAdapter: BaseRecyclerAdapter<MusicEntity>?=null
 
-    private var timer: Timer?=null
+    private var succeedReceiver:DownloadSucceedReceiver?=null
 
     override fun getLayoutId(): Int {
         return R.layout.activity_download
@@ -36,17 +42,27 @@ class LocalMusicActivity : MyBaseActivity<ActivityDownloadBinding>() {
     override fun business() {
         setToolbar()
         initAdapter()
+        initReceiver()
     }
+
+    fun initReceiver(){
+         succeedReceiver=DownloadSucceedReceiver()
+         val filter= IntentFilter()
+         filter.addAction(Constant.ACTION_SUCCEED)
+         registerReceiver(succeedReceiver,filter)
+    }
+
 
 
     override fun onResume() {
         super.onResume()
-        startInterval()
+        queryDatas()
     }
 
-    override fun onPause() {
-        super.onPause()
-        stopInterval()
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(succeedReceiver)
     }
 
     fun setToolbar(){
@@ -56,27 +72,15 @@ class LocalMusicActivity : MyBaseActivity<ActivityDownloadBinding>() {
     }
 
 
-    fun startInterval(){
-        timer= Timer()
-        timer?.schedule(object : TimerTask(){
-            override fun run() {
-                launch {
-                    val list= AppDatabase.getAppDatabase().getMusicDao().queryFinish()
-                    println("查询已下载--->${list.size}")
-                    withContext(Dispatchers.Main){
-                        downloadAdapter?.add(list,true)
-                    }
-                }
+    fun  queryDatas(){
+        launch {
+            val list= AppDatabase.getAppDatabase().getMusicDao().queryFinish()
+            withContext(Dispatchers.Main){
+                downloadAdapter?.add(list,true)
             }
-        },0,1000)
-    }
-
-    fun stopInterval(){
-        if(timer!=null){
-            timer?.cancel()
-            timer=null
         }
     }
+
 
     fun initAdapter(){
         downloadAdapter=object : BaseRecyclerAdapter<MusicEntity>(this, arrayListOf(),R.layout.item_download){
@@ -87,7 +91,9 @@ class LocalMusicActivity : MyBaseActivity<ActivityDownloadBinding>() {
                 holder.getView<View>(R.id.tv_locality_progress)?.visibility=View.GONE
                 holder.getView<View>(R.id.pb)?.visibility=View.GONE
                 //描述
-                holder.setText(R.id.tv_locality_description,"${StringTools.toM(bean.downloadEntity?.fileSize!!)}M")
+                if(bean.downloadEntity!=null){
+                    holder.setText(R.id.tv_locality_description,"${StringTools.toM(bean.downloadEntity?.fileSize!!)}M")
+                }
                 //删除
                 holder.getView<ImageView>(R.id.iv_del_download)?.setOnClickListener {
                       if(isNotQuickClick()){
@@ -105,7 +111,6 @@ class LocalMusicActivity : MyBaseActivity<ActivityDownloadBinding>() {
     */
     private fun dele(entity: DownloadEntity?,position:Int){
         launch {
-            stopInterval()
             entity?.let {
                 //删除数据库
                 AppDatabase.getAppDatabase().getMusicDao().deleteId(entity.downloadId)
@@ -114,11 +119,25 @@ class LocalMusicActivity : MyBaseActivity<ActivityDownloadBinding>() {
                 if(file.exists()){
                     file.delete()
                 }
-            }
-            withContext(Dispatchers.Main){
-                downloadAdapter?.notifyItemRemoved(position)
-                startInterval()
+                withContext(Dispatchers.Main){
+                    downloadAdapter?.remove(position)
+                }
             }
         }
     }
+
+
+   inner class DownloadSucceedReceiver:BroadcastReceiver(){
+        override fun onReceive(p0: Context?, p1: Intent?) {
+            when(p1?.action){
+                Constant.ACTION_SUCCEED->{
+                    val entity = p1.getParcelableExtra<MusicEntity>("bean")
+                    if(entity!=null){
+                        downloadAdapter?.add(entity)
+                    }
+                }
+            }
+        }
+    }
+
 }

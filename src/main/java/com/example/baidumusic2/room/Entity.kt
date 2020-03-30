@@ -1,5 +1,7 @@
 package com.example.baidumusic2.room
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.*
 
@@ -28,7 +30,43 @@ data class MusicEntity (
     //嵌入entity
     @Embedded
     var downloadEntity:DownloadEntity?=null
-)
+):Parcelable {
+    constructor(parcel: Parcel) : this(
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readByte() != 0.toByte(),
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readParcelable(DownloadEntity::class.java.classLoader)) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(songId)
+        parcel.writeString(name)
+        parcel.writeByte(if (isCollect) 1 else 0)
+        parcel.writeString(lrcLink)
+        parcel.writeString(lrcContent)
+        parcel.writeString(pic_big)
+        parcel.writeString(pic_small)
+        parcel.writeParcelable(downloadEntity,flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<MusicEntity> {
+        override fun createFromParcel(parcel: Parcel): MusicEntity {
+            return MusicEntity(parcel)
+        }
+
+        override fun newArray(size: Int): Array<MusicEntity?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
 
 
 @Entity(tableName = "Download")
@@ -62,4 +100,44 @@ data class DownloadEntity(
         //下载开始位置
         @NonNull
         var startPoistion:Int=0
-)
+):Parcelable {
+    constructor(parcel: Parcel) : this(
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readString()!!,
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt(),
+            parcel.readInt()) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(downloadId)
+        parcel.writeString(title)
+        parcel.writeString(fileLink)
+        parcel.writeString(author)
+        parcel.writeString(fileExtension)
+        parcel.writeInt(fileSize)
+        parcel.writeInt(duration)
+        parcel.writeInt(status)
+        parcel.writeInt(progress)
+        parcel.writeInt(startPoistion)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<DownloadEntity> {
+        override fun createFromParcel(parcel: Parcel): DownloadEntity {
+            return DownloadEntity(parcel)
+        }
+
+        override fun newArray(size: Int): Array<DownloadEntity?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

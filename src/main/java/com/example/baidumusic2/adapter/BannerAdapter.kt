@@ -70,7 +70,7 @@ class BannerAdapter(private var mContext: Context,private var list :ArrayList<St
 
     fun bindIndicator(rg:RadioGroup,gravity: Int){
         RgIndicator=rg;
-        val lp=RadioGroup.LayoutParams(10,10)
+        val lp=RadioGroup.LayoutParams(15,15)
         lp.leftMargin=3
         lp.rightMargin=3
         rg.gravity=gravity

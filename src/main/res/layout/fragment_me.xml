@@ -52,5 +52,35 @@
             android:layout_height="45dp" />
 
 
+        <TextView
+            android:id="@+id/tv_contact"
+            android:onClick="@{(view)->fragment.myContact(view)}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_my_music"
+            android:paddingLeft="15dp"
+            android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
+            android:background="@drawable/border_top"
+            android:textSize="16sp"
+            android:drawablePadding="10dp"
+            android:textColor="@color/colorBlack1"
+            android:gravity="center_vertical"
+            android:text="联系他TA"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+        <TextView
+            android:id="@+id/tv_add_badge"
+            android:onClick="@{(view)->fragment.addBadge(view)}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_contact"
+            android:paddingLeft="15dp"
+            android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
+            android:background="@drawable/border_top"
+            android:textSize="16sp"
+            android:drawablePadding="10dp"
+            android:textColor="@color/colorBlack1"
+            android:gravity="center_vertical"
+            android:text="添加角标"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

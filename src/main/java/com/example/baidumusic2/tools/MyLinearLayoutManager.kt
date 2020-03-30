@@ -36,4 +36,6 @@ class MyLinearLayoutManager constructor(var mContext:Context): LinearLayoutManag
     override fun canScrollVertically(): Boolean {
         return isScrollEnabled && super.canScrollVertically()
     }
+
+
 }
